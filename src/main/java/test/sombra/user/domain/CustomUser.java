@@ -1,4 +1,4 @@
-package test.sombra.user;
+package test.sombra.user.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Ivan on 22.03.2017.
  */
-public interface DAO<T> {
+public interface DAO<T, K> {
 
     List<T> findAll();
 
@@ -13,8 +13,8 @@ public interface DAO<T> {
 
     int update(T t);
 
-    void delete(Long id);
+    void delete(K k);
 
-    T findOneById(Long id);
+    T findOneById(K k);
 
 }

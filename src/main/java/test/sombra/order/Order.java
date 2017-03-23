@@ -1,7 +1,7 @@
 package test.sombra.order;
 
 import test.sombra.good.Good;
-import test.sombra.user.CustomUser;
+import test.sombra.user.domain.CustomUser;
 
 import javax.persistence.*;
 import java.io.Serializable;

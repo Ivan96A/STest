@@ -1,9 +1,9 @@
 package test.sombra.good;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import test.sombra.manufacturer.Manufacturer;
+import test.sombra.manufacturer.domain.Manufacturer;
 import test.sombra.order.Order;
-import test.sombra.type.Type;
+import test.sombra.type.domain.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;

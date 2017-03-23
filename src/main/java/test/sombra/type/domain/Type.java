@@ -1,4 +1,4 @@
-package test.sombra.type;
+package test.sombra.type.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import test.sombra.good.Good;
