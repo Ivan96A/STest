@@ -39,7 +39,7 @@ public class CustomUserMapper implements RowMapper<CustomUser>{
         return user;
     }
 
-    public List<CustomUser> mapRow(List<Map<String, Object>> rows) {
+    public List<CustomUser> mapRows(List<Map<String, Object>> rows) {
         List<CustomUser> users = new ArrayList<>();
         for(Map<String, Object> row: rows) {
             CustomUser user = new CustomUser();
