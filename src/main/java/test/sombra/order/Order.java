@@ -1,6 +1,6 @@
 package test.sombra.order;
 
-import test.sombra.good.Good;
+import test.sombra.good.domain.Good;
 import test.sombra.user.domain.CustomUser;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package test.sombra.good;
+package test.sombra.good.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import test.sombra.manufacturer.domain.Manufacturer;
