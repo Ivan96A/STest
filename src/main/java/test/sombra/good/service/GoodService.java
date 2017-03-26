@@ -13,6 +13,8 @@ public interface GoodService {
 
     int add(Good good);
 
+    List<Good> getAllByOrderId(Long id);
+
     int edit(Good good);
 
     void delete(Long id);

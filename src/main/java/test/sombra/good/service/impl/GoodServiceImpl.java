@@ -3,7 +3,7 @@ package test.sombra.good.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import test.sombra.good.dao.GoodDAOImpl;
+import test.sombra.good.dao.impl.GoodDAOImpl;
 import test.sombra.good.domain.Good;
 import test.sombra.good.service.GoodService;
 
@@ -48,4 +48,8 @@ public class GoodServiceImpl implements GoodService {
         return goodDAOImpl.findOneById(id);
     }
 
+    @Override
+    public List<Good> getAllByOrderId(Long id) {
+        return goodDAOImpl.findAllByOrderId(id);
+    }
 }

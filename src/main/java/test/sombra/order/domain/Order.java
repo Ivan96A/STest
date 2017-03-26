@@ -1,4 +1,4 @@
-package test.sombra.order;
+package test.sombra.order.domain;
 
 import test.sombra.good.domain.Good;
 import test.sombra.user.domain.CustomUser;

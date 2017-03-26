@@ -2,7 +2,7 @@ package test.sombra.good.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import test.sombra.manufacturer.domain.Manufacturer;
-import test.sombra.order.Order;
+import test.sombra.order.domain.Order;
 import test.sombra.type.domain.Type;
 
 import javax.persistence.*;

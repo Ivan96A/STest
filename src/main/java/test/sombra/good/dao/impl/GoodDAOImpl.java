@@ -1,4 +1,4 @@
-package test.sombra.good.dao;
+package test.sombra.good.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import test.sombra.good.dao.GoodDAO;
 import test.sombra.good.domain.Good;
 import test.sombra.good.mapper.GoodMapper;
 
@@ -33,6 +34,8 @@ public class GoodDAOImpl implements GoodDAO {
 
     private static final String FIND_ONE_BY_ID_QUERY = "SELECT * FROM good " +
             "WHERE id = ?";
+
+    private static final String FIND_ALL_BY_ORDER_ID_QUERY = "SELECT goods_id FROM goods_orders WHERE orders_user_id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -95,4 +98,11 @@ public class GoodDAOImpl implements GoodDAO {
                 goodMapper
         );
     }
+
+    @Override
+    public List<Good> findAllByOrderId(Long id) {
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_ORDER_ID_QUERY, id);
+        return goodMapper.mapRows(rows);
+    }
+
 }
