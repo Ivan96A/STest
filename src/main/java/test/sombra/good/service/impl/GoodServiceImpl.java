@@ -3,7 +3,7 @@ package test.sombra.good.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import test.sombra.good.dao.GoodDAO;
+import test.sombra.good.dao.GoodDAOImpl;
 import test.sombra.good.domain.Good;
 import test.sombra.good.service.GoodService;
 
@@ -15,37 +15,37 @@ import java.util.List;
 @Service
 public class GoodServiceImpl implements GoodService {
 
-    private final GoodDAO goodDAO;
+    private final GoodDAOImpl goodDAOImpl;
 
     @Autowired
-    public GoodServiceImpl(GoodDAO goodDAO) {
-        Assert.notNull(goodDAO, "goodDAO must not be null");
-        this.goodDAO = goodDAO;
+    public GoodServiceImpl(GoodDAOImpl goodDAOImpl) {
+        Assert.notNull(goodDAOImpl, "goodDAO must not be null");
+        this.goodDAOImpl = goodDAOImpl;
     }
 
     @Override
     public List<Good> getAll() {
-        return goodDAO.findAll();
+        return goodDAOImpl.findAll();
     }
 
     @Override
     public int add(Good good) {
-        return goodDAO.insert(good);
+        return goodDAOImpl.insert(good);
     }
 
     @Override
     public int edit(Good good) {
-        return goodDAO.update(good);
+        return goodDAOImpl.update(good);
     }
 
     @Override
     public void delete(Long id) {
-        goodDAO.delete(id);
+        goodDAOImpl.delete(id);
     }
 
     @Override
     public Good getOne(Long id) {
-        return goodDAO.findOneById(id);
+        return goodDAOImpl.findOneById(id);
     }
 
 }

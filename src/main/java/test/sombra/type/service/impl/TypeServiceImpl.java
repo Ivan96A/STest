@@ -3,7 +3,7 @@ package test.sombra.type.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import test.sombra.type.dao.TypeDAO;
+import test.sombra.type.dao.impl.TypeDAOImpl;
 import test.sombra.type.domain.Type;
 import test.sombra.type.service.TypeService;
 
@@ -15,36 +15,36 @@ import java.util.List;
 @Service
 public class TypeServiceImpl implements TypeService {
 
-    private final TypeDAO typeDAO;
+    private final TypeDAOImpl typeDAOImpl;
 
     @Autowired
-    public TypeServiceImpl(TypeDAO typeDAO) {
-        Assert.notNull(typeDAO, "dao must not be null");
-        this.typeDAO = typeDAO;
+    public TypeServiceImpl(TypeDAOImpl typeDAOImpl) {
+        Assert.notNull(typeDAOImpl, "dao must not be null");
+        this.typeDAOImpl = typeDAOImpl;
     }
 
     @Override
     public List<Type> getAll() {
-        return typeDAO.findAll();
+        return typeDAOImpl.findAll();
     }
 
     @Override
     public int add(Type type) {
-        return typeDAO.insert(type);
+        return typeDAOImpl.insert(type);
     }
 
     @Override
     public int update(Type type) {
-        return typeDAO.update(type);
+        return typeDAOImpl.update(type);
     }
 
     @Override
     public void delete(Long id) {
-        typeDAO.delete(id);
+        typeDAOImpl.delete(id);
     }
 
     @Override
     public Type getOne(Long id) {
-        return typeDAO.findOneById(id);
+        return typeDAOImpl.findOneById(id);
     }
 }

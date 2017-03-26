@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import test.sombra.user.dao.CustomUserDAO;
+import test.sombra.user.dao.impl.CustomUserDAOImpl;
 import test.sombra.user.domain.CustomUser;
 import test.sombra.user.service.CustomUserService;
 
@@ -16,12 +16,12 @@ import java.util.List;
 @Service
 public class CustomUserServiceImpl implements CustomUserService {
 
-    private final CustomUserDAO customUserDAO;
+    private final CustomUserDAOImpl customUserDAO;
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomUserServiceImpl(PasswordEncoder passwordEncoder, CustomUserDAO customUserDAO) {
+    public CustomUserServiceImpl(PasswordEncoder passwordEncoder, CustomUserDAOImpl customUserDAO) {
         Assert.notNull(passwordEncoder, "passwordEncoder must not be null");
         Assert.notNull(customUserDAO, "dao must not be null");
         this.passwordEncoder = passwordEncoder;
