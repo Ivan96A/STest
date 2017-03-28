@@ -1,5 +1,6 @@
 package test.sombra.good.service;
 
+import org.springframework.http.ResponseEntity;
 import test.sombra.good.domain.Good;
 
 import java.util.List;
@@ -9,15 +10,15 @@ import java.util.List;
  */
 public interface GoodService {
 
-    List<Good> getAll();
+    ResponseEntity<List<Good>> getAll();
 
-    int add(Good good);
+    ResponseEntity<Good> add(Good good);
 
-    List<Good> getAllByOrderId(Long id);
+    ResponseEntity<List<Good>> getAllByOrderId(Long id);
 
-    int edit(Good good);
+    ResponseEntity<Good> edit(Good good);
 
-    void delete(Long id);
+    ResponseEntity<Void> delete(Long id);
 
-    Good getOne(Long id);
+    ResponseEntity<Good> getOne(Long id);
 }

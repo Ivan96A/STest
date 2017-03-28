@@ -1,7 +1,9 @@
 package test.sombra.manufacturer.service;
 
+import org.springframework.http.ResponseEntity;
 import test.sombra.manufacturer.domain.Manufacturer;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -9,13 +11,13 @@ import java.util.List;
  */
 public interface ManufacturerService {
 
-    List<Manufacturer> getAll();
+    ResponseEntity<List<Manufacturer>> getAll();
 
-    int add(Manufacturer manufacturer);
+    ResponseEntity<Manufacturer> add(Manufacturer manufacturer);
 
-    int update(Manufacturer manufacturer);
+    ResponseEntity<Manufacturer> update(Manufacturer manufacturer);
 
-    void delete(Long id);
+    ResponseEntity<Void> delete(Long id);
 
-    Manufacturer getOne(Long id);
+    ResponseEntity<Manufacturer> getOne(Long id);
 }

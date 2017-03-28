@@ -1,5 +1,6 @@
 package test.sombra.type.service;
 
+import org.springframework.http.ResponseEntity;
 import test.sombra.type.domain.Type;
 
 import java.util.List;
@@ -9,13 +10,13 @@ import java.util.List;
  */
 public interface TypeService {
 
-    List<Type> getAll();
+    ResponseEntity<List<Type>> getAll();
 
-    int add(Type type);
+    ResponseEntity<Type> add(Type type);
 
-    int update(Type type);
+    ResponseEntity<Type> update(Type type);
 
-    void delete(Long id);
+    ResponseEntity<Void> delete(Long id);
 
-    Type getOne(Long id);
+    ResponseEntity<Type> getOne(Long id);
 }

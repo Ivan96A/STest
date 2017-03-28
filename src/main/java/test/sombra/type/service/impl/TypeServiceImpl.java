@@ -1,6 +1,10 @@
 package test.sombra.type.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import test.sombra.type.dao.impl.TypeDAOImpl;
@@ -17,6 +21,8 @@ public class TypeServiceImpl implements TypeService {
 
     private final TypeDAOImpl typeDAOImpl;
 
+    private static final Logger LOG = LoggerFactory.getLogger(TypeServiceImpl.class);
+
     @Autowired
     public TypeServiceImpl(TypeDAOImpl typeDAOImpl) {
         Assert.notNull(typeDAOImpl, "dao must not be null");
@@ -24,27 +30,45 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<Type> getAll() {
-        return typeDAOImpl.findAll();
+    public ResponseEntity<List<Type>> getAll() {
+        return new ResponseEntity<>(typeDAOImpl.findAll(), HttpStatus.OK);
     }
 
     @Override
-    public int add(Type type) {
-        return typeDAOImpl.insert(type);
+    public ResponseEntity<Type> add(Type type) {
+        if (type == null) {
+            LOG.warn("type with name='{}' cannot be added because type is null", type.getName());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        typeDAOImpl.insert(type);
+        return new ResponseEntity<>(type, HttpStatus.CREATED);
     }
 
     @Override
-    public int update(Type type) {
-        return typeDAOImpl.update(type);
+    public ResponseEntity<Type> update(Type type) {
+        if (type == type) {
+            LOG.warn("type with name='{}' cannot be updated because type is null", type.getName());
+        }
+        typeDAOImpl.update(type);
+        return new ResponseEntity<>(type, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Long id) {
+    public ResponseEntity<Void> delete(Long id) {
+        if (id <= 0) {
+            LOG.warn("id cannot be less then 1");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         typeDAOImpl.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public Type getOne(Long id) {
-        return typeDAOImpl.findOneById(id);
+    public ResponseEntity<Type> getOne(Long id) {
+        if (id <= 0) {
+            LOG.warn("id cannot be less then 1");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(typeDAOImpl.findOneById(id), HttpStatus.OK);
     }
 }

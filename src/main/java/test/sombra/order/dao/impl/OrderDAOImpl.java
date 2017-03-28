@@ -51,7 +51,7 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public int insert(Order order) {
-        LOGGER.info("inserting an order with id='{}'", order.getId());
+        LOGGER.info("inserting an order");
         return jdbcTemplate.update(INSERT_QUERY,
                 order.getAmount(),
                 order.getUser().getId()

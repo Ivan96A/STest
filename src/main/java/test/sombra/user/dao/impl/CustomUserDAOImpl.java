@@ -71,8 +71,7 @@ public class CustomUserDAOImpl implements CustomUserDAO {
                 customUser.getUsername(),
                 customUser.getPassword(),
                 customUser.isActive(),
-                customUser.getRole(),
-                customUser.getId()
+                customUser.getRole()
         );
     }
 

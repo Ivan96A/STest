@@ -1,6 +1,7 @@
 package test.sombra.order.service;
 
 
+import org.springframework.http.ResponseEntity;
 import test.sombra.good.domain.Good;
 import test.sombra.order.domain.Order;
 
@@ -9,12 +10,12 @@ import test.sombra.order.domain.Order;
  */
 public interface OrderService {
 
-    int add(Order order);
+    ResponseEntity<Order> add(Order order);
 
-    Order findOne(Long id);
+    ResponseEntity<Order> findOne(Long id);
 
-    int addOrderToOrder(Good good, Order order);
+    ResponseEntity<Order> addOrderToOrder(Good good, Order order);
 
-    void deleteGoodFromOrder(Good good, Order order);
+    ResponseEntity<Order> deleteGoodFromOrder(Good good, Order order);
 
 }

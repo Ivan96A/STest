@@ -1,6 +1,9 @@
 package test.sombra.good.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import test.sombra.good.dao.impl.GoodDAOImpl;
@@ -17,6 +20,8 @@ public class GoodServiceImpl implements GoodService {
 
     private final GoodDAOImpl goodDAOImpl;
 
+    private static final Logger LOGGER = Logger.getLogger(GoodServiceImpl.class);
+
     @Autowired
     public GoodServiceImpl(GoodDAOImpl goodDAOImpl) {
         Assert.notNull(goodDAOImpl, "goodDAO must not be null");
@@ -24,32 +29,55 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public List<Good> getAll() {
-        return goodDAOImpl.findAll();
+    public ResponseEntity<List<Good>> getAll() {
+        return new ResponseEntity<>(goodDAOImpl.findAll(), HttpStatus.OK);
     }
 
     @Override
-    public int add(Good good) {
-        return goodDAOImpl.insert(good);
+    public ResponseEntity<Good> add(Good good) {
+        if (good == null) {
+            LOGGER.warn("cannot be added user because user is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        goodDAOImpl.insert(good);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public int edit(Good good) {
-        return goodDAOImpl.update(good);
+    public ResponseEntity<Good> edit(Good good) {
+        if (good == null) {
+            LOGGER.warn("cannot be added user because user is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        goodDAOImpl.update(good);
+        return new ResponseEntity<>(good, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Long id) {
+    public ResponseEntity<Void> delete(Long id) {
+        if (id <= 0) {
+            LOGGER.warn("id cannot be less then 1");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         goodDAOImpl.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public Good getOne(Long id) {
-        return goodDAOImpl.findOneById(id);
+    public ResponseEntity<Good> getOne(Long id) {
+        if (id <= 0) {
+            LOGGER.warn("id cannot be less then 1");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(goodDAOImpl.findOneById(id), HttpStatus.OK);
     }
 
     @Override
-    public List<Good> getAllByOrderId(Long id) {
-        return goodDAOImpl.findAllByOrderId(id);
+    public ResponseEntity<List<Good>> getAllByOrderId(Long id) {
+        if (id <= 0) {
+            LOGGER.warn("id cannot be less then 1");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(goodDAOImpl.findAllByOrderId(id), HttpStatus.OK);
     }
 }

@@ -1,5 +1,8 @@
 package test.sombra.user.service;
 
+import org.springframework.http.ResponseEntity;
+import test.sombra.dto.AuthUserDTO;
+import test.sombra.dto.LoginUserDTO;
 import test.sombra.user.domain.CustomUser;
 
 import java.util.List;
@@ -9,18 +12,20 @@ import java.util.List;
  */
 public interface CustomUserService {
 
-    List<CustomUser> getAll();
+    ResponseEntity<List<CustomUser>> getAll();
 
-    CustomUser getOne(Long id);
+    ResponseEntity<CustomUser> getOne(Long id);
 
-    CustomUser getOneByUsername(String username);
+    ResponseEntity<CustomUser> getOneByUsername(String username);
 
-    CustomUser save(CustomUser user);
+    ResponseEntity<CustomUser> save(CustomUser user);
 
-    CustomUser edit(CustomUser user);
+    ResponseEntity<CustomUser> edit(CustomUser user);
 
-    void delete(Long id);
+    ResponseEntity<Void> delete(Long id);
 
-    CustomUser changeActiveStatus(CustomUser user);
+    ResponseEntity<CustomUser> changeActiveStatus(CustomUser user);
+
+    AuthUserDTO authenticateUser(LoginUserDTO loginUserDTO);
 
 }

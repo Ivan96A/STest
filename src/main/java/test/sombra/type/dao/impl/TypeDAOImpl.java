@@ -1,5 +1,7 @@
 package test.sombra.type.dao.impl;
 
+import com.google.common.base.Strings;
+import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
