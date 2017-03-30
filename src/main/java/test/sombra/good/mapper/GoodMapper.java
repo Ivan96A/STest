@@ -40,6 +40,8 @@ public class GoodMapper implements RowMapper<Good> {
 
     private static final String MANUFACTURER_ID = "manufacturer_id";
 
+    private static final String NAME= "name";
+
     private final TypeDAO typeService;
 
     private final ManufacturerDAO manufacturerService;
@@ -66,7 +68,7 @@ public class GoodMapper implements RowMapper<Good> {
 
         good.setManufacturer(manufacturer);
         good.setType(type);
-
+        good.setName(resultSet.getString(NAME));
         return good;
     }
 
@@ -86,7 +88,7 @@ public class GoodMapper implements RowMapper<Good> {
 
             good.setManufacturer(manufacturer);
             good.setType(type);
-
+            good.setName((String) row.get(NAME));
             goods.add(good);
         }
 

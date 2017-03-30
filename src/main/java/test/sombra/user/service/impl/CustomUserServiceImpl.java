@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import test.sombra.dto.AuthUserDTO;
 import test.sombra.dto.LoginUserDTO;
+import test.sombra.user.dao.CustomUserDAO;
 import test.sombra.user.dao.impl.CustomUserDAOImpl;
 import test.sombra.user.domain.CustomUser;
 import test.sombra.user.service.CustomUserService;
@@ -28,7 +29,7 @@ import java.util.List;
 @Service
 public class CustomUserServiceImpl implements CustomUserService {
 
-    private final CustomUserDAOImpl customUserDAO;
+    private final CustomUserDAO customUserDAO;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -38,7 +39,7 @@ public class CustomUserServiceImpl implements CustomUserService {
 
 
     @Autowired
-    public CustomUserServiceImpl(PasswordEncoder passwordEncoder, CustomUserDAOImpl customUserDAO, AuthenticationManager authenticationManager) {
+    public CustomUserServiceImpl(PasswordEncoder passwordEncoder, CustomUserDAO customUserDAO, AuthenticationManager authenticationManager) {
         Assert.notNull(passwordEncoder, "passwordEncoder must not be null");
         Assert.notNull(customUserDAO, "dao must not be null");
         Assert.notNull(authenticationManager, "authenticationManager must not be null");

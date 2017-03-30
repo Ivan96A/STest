@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import test.sombra.manufacturer.dao.impl.ManufacturerDAOImpl;
+import test.sombra.manufacturer.dao.ManufacturerDAO;
 import test.sombra.manufacturer.domain.Manufacturer;
 import test.sombra.manufacturer.service.ManufacturerService;
 
@@ -19,19 +19,19 @@ import java.util.List;
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {
 
-    private final ManufacturerDAOImpl manufacturerDAOImpl;
+    private final ManufacturerDAO manufacturerDAO;
 
     private static final Logger LOG = LoggerFactory.getLogger(ManufacturerServiceImpl.class);
 
     @Autowired
-    public ManufacturerServiceImpl(ManufacturerDAOImpl manufacturerDAOImpl) {
-        Assert.notNull(manufacturerDAOImpl, "dao must not be null");
-        this.manufacturerDAOImpl = manufacturerDAOImpl;
+    public ManufacturerServiceImpl(ManufacturerDAO manufacturerDAO) {
+        Assert.notNull(manufacturerDAO, "dao must not be null");
+        this.manufacturerDAO = manufacturerDAO;
     }
 
     @Override
     public ResponseEntity<List<Manufacturer>> getAll() {
-        return new ResponseEntity<>(manufacturerDAOImpl.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(manufacturerDAO.findAll(), HttpStatus.OK);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             LOG.warn("cannot be added a manufacturer because manufacturer is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        manufacturerDAOImpl.insert(manufacturer);
+        manufacturerDAO.insert(manufacturer);
         return new ResponseEntity<>(manufacturer, HttpStatus.CREATED);
     }
 
@@ -50,7 +50,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             LOG.warn("cannot be updated a manufacturer because manufacturer is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        manufacturerDAOImpl.update(manufacturer);
+        manufacturerDAO.update(manufacturer);
         return new ResponseEntity<>(manufacturer, HttpStatus.OK);
     }
 
@@ -60,7 +60,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             LOG.warn("id cannot be less then 1");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        manufacturerDAOImpl.delete(id);
+        manufacturerDAO.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -70,6 +70,6 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             LOG.warn("id cannot be less then 1");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(manufacturerDAOImpl.findOneById(id), HttpStatus.OK);
+        return new ResponseEntity<>(manufacturerDAO.findOneById(id), HttpStatus.OK);
     }
 }

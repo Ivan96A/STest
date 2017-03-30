@@ -21,21 +21,28 @@ public class GoodDAOImpl implements GoodDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GoodDAOImpl.class);
 
-    private static final String FIND_ALL_QUERY = "SELECT * FROM good";
+    private static final String FIND_ALL_QUERY = "SELECT * FROM goods";
 
-    private static final String INSERT_QUERY = "INSERT INTO good(price, status, " +
+    private static final String INSERT_QUERY = "INSERT INTO goods(price, status, " +
             "material, picture, type_id, manufacturer_id) VALUES(?,?,?,?,?,?)";
 
-    private static final String UPDATE_QUERY = "UPDATE good " +
+    private static final String UPDATE_QUERY = "UPDATE goods " +
             "SET price = ?, status = ?, material = ?, picture = ?, " +
             "type_id = ?, manufacturer_id = ? WHERE id = ?";
 
-    private static final String DELETE_QUERY = "DELETE FROM good WHERE id = ?";
+    private static final String DELETE_QUERY = "DELETE FROM goods WHERE id = ?";
 
-    private static final String FIND_ONE_BY_ID_QUERY = "SELECT * FROM good " +
+    private static final String FIND_ONE_BY_ID_QUERY = "SELECT * FROM goods " +
             "WHERE id = ?";
 
     private static final String FIND_ALL_BY_ORDER_ID_QUERY = "SELECT goods_id FROM goods_orders WHERE orders_user_id = ?";
+
+    private static final String FIND_ALL_BY_NAME_QUERY = "SELECT * FROM goods WHERE LOWER(name) LIKE LOWER(?)";
+
+    private static final String FIND_ALL_BY_TYPE_ID_QUERY = "SELECT * FROM goods WHERE type_id = ?";
+
+    private static final String FIND_ALL_BY_NAME_AND_TYPE_ID_QUERY = "SELECT * FROM goods " +
+            "WHERE LOWER(name) LIKE LOWER(?) AND type_id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -105,4 +112,25 @@ public class GoodDAOImpl implements GoodDAO {
         return goodMapper.mapRows(rows);
     }
 
+    @Override
+    public List<Good> findAllByName(String name) {
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_NAME_QUERY, name + "%");
+         return goodMapper.mapRows(rows);
+    }
+
+    @Override
+    public List<Good> findAllByTypeId(Long id) {
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_TYPE_ID_QUERY, id);
+        return goodMapper.mapRows(rows);
+    }
+
+    @Override
+    public List<Good> findAllByNameAndTypeId(String name, Long id) {
+        LOGGER.info("finding all goods with name='{}' and typeId='{}'", name, id);
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_NAME_AND_TYPE_ID_QUERY,
+                name + "%",
+                id
+        );
+        return goodMapper.mapRows(rows);
+    }
 }

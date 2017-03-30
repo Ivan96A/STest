@@ -1,0 +1,29 @@
+<div class="container">
+    <form class="navbar-form navbar-left">
+        <div class="form-group" ng-controller="TypesCtrl">
+            <input type="text" class="form-control" placeholder="Search" ng-model="goodName">
+
+            <div class="btn-group"  ng-init="getTypes()">
+                <select class="form-control" ng-model="typeId" >
+                    <option ng-model="typeId">All</option>
+                    <option ng-repeat="type in types" ng-model="typeId">{{type.name}}</option>
+                </select>
+            </div>
+
+        <button type="button" class="btn btn-default" ng-click="getGoods(goodName, typeId)">Submit</button>
+        </div>
+    </form>
+</div>
+
+</br>
+
+    <div class="row" >
+        <div class="col-md-4" ng-repeat="good in goods">
+            <div class="jumbotron">
+                <center><p>{{good.name}}</p></center>
+                <img ng-src="/images/{{good.picture}}" class="img-responsive" alt="Responsive image">
+                <a class="btn btn-default" href="#/good/{{good.id}}" role="button">Детальніше</a>
+            </div>
+        </div>
+    </div>
+</div>

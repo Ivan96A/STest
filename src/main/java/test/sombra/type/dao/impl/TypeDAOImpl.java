@@ -35,6 +35,9 @@ public class TypeDAOImpl implements TypeDAO {
     private static final String FIND_ONE_BY_ID_QUERY = "SELECT * FROM types " +
             "WHERE id = ?";
 
+    private static final String FIND_ONE_BY_NAME_QUERY = "SELECT * FROM types " +
+            "WHERE name = ?";
+
     private final JdbcTemplate jdbcTemplate;
 
     private final TypeRowMapper typeRowMapper;
@@ -79,6 +82,14 @@ public class TypeDAOImpl implements TypeDAO {
         LOGGER.info("Finding a type by id='{}'", aLong);
         return jdbcTemplate.queryForObject(FIND_ONE_BY_ID_QUERY,
                 new Object[]{aLong},
+                typeRowMapper);
+    }
+
+    @Override
+    public Type findOneByName(String name) {
+        LOGGER.info("finding a type with name='{}'", name);
+        return jdbcTemplate.queryForObject(FIND_ONE_BY_NAME_QUERY,
+                new Object[]{name},
                 typeRowMapper);
     }
 }

@@ -1,0 +1,18 @@
+<div class="container" ng-init="getGoodById(goodId)">
+
+    <div class="row">
+
+        <div class="col-md-4"><img ng-src="/images/{{good.picture}}" class="img-responsive" alt="Responsive image"></div>
+        <div class="col-md-4" > <p>Name {{good.name}}</p>
+            <p>price {{good.price}}$</p>
+            <p>material {{good.material}}</p>
+            <p>status {{good.status}}</p>
+
+            <!--<button type="submit" class="btn btn-default" ng-click="sentData()">Добавить</button>-->
+
+        </div>
+        <div class="col-md-4" >
+            <img ng-src="/images/{{good.manufacturer.logo}}" class="img-responsive" alt="Responsive image">
+            </div>
+    </div>
+</div>

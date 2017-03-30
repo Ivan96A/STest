@@ -22,6 +22,9 @@ public class Good implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "price")
     private Double price;
 
@@ -50,7 +53,8 @@ public class Good implements Serializable {
 
     }
 
-    public Good(Double price, boolean status, String material, String picture, Type type, Manufacturer manufacturer, Set<Order> orders) {
+    public Good(String name, Double price, boolean status, String material, String picture, Type type, Manufacturer manufacturer, Set<Order> orders) {
+        this.name = name;
         this.price = price;
         this.status = status;
         this.material = material;
@@ -66,6 +70,14 @@ public class Good implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
@@ -133,6 +145,7 @@ public class Good implements Serializable {
 
         if (isStatus() != good.isStatus()) return false;
         if (!getId().equals(good.getId())) return false;
+        if (!getName().equals(good.getName())) return false;
         if (!getPrice().equals(good.getPrice())) return false;
         if (!getMaterial().equals(good.getMaterial())) return false;
         if (!getPicture().equals(good.getPicture())) return false;
@@ -145,6 +158,7 @@ public class Good implements Serializable {
     @Override
     public int hashCode() {
         int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
         result = 31 * result + getPrice().hashCode();
         result = 31 * result + (isStatus() ? 1 : 0);
         result = 31 * result + getMaterial().hashCode();
@@ -159,12 +173,14 @@ public class Good implements Serializable {
     public String toString() {
         return "Good{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 ", status=" + status +
                 ", material='" + material + '\'' +
                 ", picture='" + picture + '\'' +
                 ", type=" + type +
                 ", manufacturer=" + manufacturer +
+                ", orders=" + orders +
                 '}';
     }
 }

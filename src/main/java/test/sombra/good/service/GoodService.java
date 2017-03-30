@@ -21,4 +21,10 @@ public interface GoodService {
     ResponseEntity<Void> delete(Long id);
 
     ResponseEntity<Good> getOne(Long id);
+
+    ResponseEntity<List<Good>> getAllByName(String name);
+
+    ResponseEntity<List<Good>> getAllByTypeId(String typeName);
+
+    ResponseEntity<List<Good>> getAllByNameAndTypeId(String name, String typeName);
 }

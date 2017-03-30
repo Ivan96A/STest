@@ -8,4 +8,5 @@ import test.sombra.type.domain.Type;
  */
 public interface TypeDAO extends DAO<Type, Long>{
 
+    Type findOneByName(String name);
 }
