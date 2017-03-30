@@ -7,9 +7,9 @@
     angular
         .module('main', [
             'home',
-            //'games',
-            //'register',
-           // 'order',
+            'admin',
+            'register',
+            'login',
             'ui.router',
             'ui.bootstrap',
             'ngCookies',
@@ -40,19 +40,12 @@
                 abstract: true,
                 templateUrl: 'app/main.view.html'
             });
-            /*.state('login', {
-                url: '/login',
-                controller: 'LoginCtrl',
-                templateUrl: 'app/login/login.view.html'
-            });*/
-
-
 
     }
 
     run.$inject = ['$rootScope', '$cookieStore', '$state', '$translate', '$http', 'crAcl'];
     function run($rootScope, $cookieStore, $state, $translate, $http,  crAcl) {
-/*
+
         $rootScope.globals = $cookieStore.get('globals') || {};
 
         crAcl.setInheritanceRoles({
@@ -68,7 +61,7 @@
             crAcl.setRole($rootScope.globals.currentUser.role);
         } else {
             crAcl.setRole("ROLE_GUEST");
-        }*/
+        }
 
     }
 

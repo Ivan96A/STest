@@ -61,6 +61,7 @@ public class CustomUserServiceImpl implements CustomUserService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
+        user.setActive(true);
         int id = customUserDAO.insert(user);
         user.setId((long) id);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
