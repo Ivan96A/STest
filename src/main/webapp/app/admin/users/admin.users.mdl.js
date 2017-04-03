@@ -2,11 +2,7 @@
     'use strict';
 
     angular
-        .module('admin', [
-            'users',
-            'manufacturers',
-            'types',
-            'goods',
+        .module('users', [
             'ui.router'
         ])
         .config(configure);
@@ -15,15 +11,11 @@
     function configure($stateProvider, $urlRouterProvider) {
 
         $stateProvider
-            .state('main.admin', {
-                url: 'admin',
+            .state('main.admin.users', {
+                url: 'admin.users',
                 //controller: 'LoginCtrl',
-                templateUrl: 'app/admin/admin.view.html',
-                data: {
-                    is_granted: ["ROLE_ADMIN"]
-                }
+                templateUrl: 'app/admin/users/admin.users.view.html',
             });
     }
 
 })();
-

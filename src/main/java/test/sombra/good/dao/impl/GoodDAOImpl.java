@@ -107,19 +107,22 @@ public class GoodDAOImpl implements GoodDAO {
     }
 
     @Override
-    public List<Good> findAllByOrderId(Long id) {
+    public List<Long> findAllGoodsIdByOrderId(Long id) {
+        LOGGER.info("finding all goods by order with id='{}'", id);
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_ORDER_ID_QUERY, id);
-        return goodMapper.mapRows(rows);
+        return goodMapper.mapRowsByGoodsOrdersTable(rows);
     }
 
     @Override
     public List<Good> findAllByName(String name) {
+        LOGGER.info("finding all goods with name='{}'", name);
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_NAME_QUERY, name + "%");
          return goodMapper.mapRows(rows);
     }
 
     @Override
     public List<Good> findAllByTypeId(Long id) {
+        LOGGER.info("finding all goods by type with id='{}'", id);
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_BY_TYPE_ID_QUERY, id);
         return goodMapper.mapRows(rows);
     }

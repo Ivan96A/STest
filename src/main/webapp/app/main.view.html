@@ -22,10 +22,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active"><a ui-sref="main.home">Home<span class="sr-only text-right">(current)</span></a></li>
                 <li cr-granted="ROLE_ADMIN" ui-sref-active="active"><a ui-sref="main.admin">Admin</a></li>
-                <li ui-sref-active="active"><a ui-sref="main.order">Order</a></li>
+                <li cr-granted="ROLE_USER" ui-sref-active="active"><a ui-sref="main.order">Order</a></li>
                 <li ui-sref-active="active"><a ui-sref="main.register">Sing up</a></li>
                 <li ui-sref-active="active"><a ui-sref="main.login">Log in</a></li>
-                <li ui-sref-active="active"><a>Log Out</a></li>
+                <li ui-sref-active="active"><a ng-controller="LoginCtrl" href="" ng-click="logout()">Log Out</a></li>
             </ul>
 
         </div><!-- /.navbar-collapse -->

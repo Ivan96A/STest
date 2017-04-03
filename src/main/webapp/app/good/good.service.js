@@ -23,6 +23,18 @@
                 return $http.get(urlBase + '/' + id)
             };
 
+            this.addGoodToOrder = function(sentData) {
+                return $http.post('/order', sentData);
+            };
+
+            this.deleteGoodFromOrder = function(sentData) {
+                return $http.post('/order/delete', sentData);
+            }
+
+            this.getGoodsByUsername = function (username) {
+                return $http.get(urlBase + '/public/' + username);
+            }
+
             //this.sentData = function(gameAndUserData) {
             //    return $http.post('/order', gameAndUserData);
             //}

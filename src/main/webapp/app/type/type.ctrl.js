@@ -17,10 +17,10 @@
 
             function failed(response) {
                 sc.types = response.data;
-                //console.log(response.status);
+                console.log(response.status);
             };
 
             TypesService.getAll().then(success, failed);
-        }
+        };
     }
 })();

@@ -32,5 +32,11 @@
                     sc.authFailed = true;
                 });
         }
+
+        sc.logout = function() {
+            CredentialsService.ClearCredentials();
+            crAcl.setRole("ROLE_GUEST");
+            $state.go('main.login');
+        }
     }
 })();

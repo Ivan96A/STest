@@ -13,6 +13,12 @@
 
         sc.goodId = $stateParams.goodId;
 
+        sc.sentData = {
+            'goodId': '',
+            'username': ''
+        };
+
+        sc.sentData.username = $rootScope.globals.currentUser.username;
 
 
         sc.getGoodById = function(id) {
@@ -28,6 +34,19 @@
 
             GoodsService.getById(id).then(success, failed);
 
+        };
+
+        sc.addGoodToOrder = function () {
+            sc.sentData.goodId = sc.goodId;
+            function success(response) {
+
+            };
+
+            function failed(response) {
+
+            };
+
+            GoodsService.addGoodToOrder(sc.sentData).then(success, failed);
         };
 
 

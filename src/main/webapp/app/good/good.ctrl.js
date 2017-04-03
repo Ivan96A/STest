@@ -25,6 +25,6 @@
             };
 
             GoodsService.getAll(goodName, typeId).then(success, failed);
-        }
+        };
     }
 })();

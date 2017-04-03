@@ -10,6 +10,7 @@ import test.sombra.order.dao.OrderDAO;
 import test.sombra.order.domain.Order;
 import test.sombra.order.mapper.OrderMapper;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -30,6 +31,10 @@ public class OrderDAOImpl implements OrderDAO {
 
     private static final String DELETE_GOOD_FROM_ORDER = "DELETE FROM goods_orders " +
             "WHERE goods_id = ? AND orders_user_id = ?";
+
+    private static final String FIND_COUNT_BY_USER_ID_QUERY = "SELECT COUNT(user_id) FROM orders WHERE user_id = ?";
+
+    private static final String FIND_ONE_BY_USER_ID_QUERY = "SELECT * FROM orders WHERE user_id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -53,7 +58,6 @@ public class OrderDAOImpl implements OrderDAO {
     public int insert(Order order) {
         LOGGER.info("inserting an order");
         return jdbcTemplate.update(INSERT_QUERY,
-                order.getAmount(),
                 order.getUser().getId()
         );
     }
@@ -82,8 +86,10 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public int addGoodToOrder(Good good, Order order) {
         LOGGER.info("adding good with id='{}' to order with id='{}'", good.getId(),
-                order.getId());
-        return jdbcTemplate.update(INSERT_GOOD_TO_ORDER, good.getId(), order.getId());
+                order.getUser().getId());
+        return jdbcTemplate.update(INSERT_GOOD_TO_ORDER,
+                good.getId(),
+                order.getUser().getId());
     }
 
     @Override
@@ -92,6 +98,20 @@ public class OrderDAOImpl implements OrderDAO {
                 order.getId());
         jdbcTemplate.update(DELETE_GOOD_FROM_ORDER,
                 good.getId(),
-                order.getId());
+                order.getUser().getId());
+    }
+
+    @Override
+    public Long findCountRowsByUserId(Long id) {
+        LOGGER.info("finding count rows by userId");
+        Long count = jdbcTemplate.queryForObject(FIND_COUNT_BY_USER_ID_QUERY, Long.class, new Object[]{id});
+        if (count == null) return null;
+        else return count;
+    }
+
+    @Override
+    public Order findOneByUserId(Long id) {
+        LOGGER.info("finding order by user_id");
+        return jdbcTemplate.queryForObject(FIND_ONE_BY_USER_ID_QUERY, new Object[]{id}, orderMapper);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface GoodDAO extends DAO<Good, Long> {
 
-    List<Good> findAllByOrderId(Long id);
+    List<Long> findAllGoodsIdByOrderId(Long id);
 
     List<Good> findAllByName(String name);
 

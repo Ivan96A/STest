@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import test.sombra.good.domain.Good;
+import test.sombra.good.domain.GoodDTO;
 import test.sombra.good.service.GoodService;
 
 import java.util.List;
@@ -32,13 +33,13 @@ public class GoodController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Good>> getAll(String goodName, String typeId) {
-        if(goodName != null && typeId != null) {
+        if (goodName != null && typeId != null) {
             return goodService.getAllByNameAndTypeId(goodName, typeId);
-        } else if(goodName == null && typeId != null) {
+        } else if (goodName == null && typeId != null) {
             return goodService.getAllByTypeId(typeId);
-        }else if(goodName != null && typeId == null) {
+        } else if (goodName != null && typeId == null) {
             return goodService.getAllByName(goodName);
-        }else {
+        } else {
             return goodService.getAll();
         }
 
@@ -47,8 +48,15 @@ public class GoodController {
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.GET)
-    public ResponseEntity<Good> getOne(@PathVariable("id")  Long id) {
+    public ResponseEntity<Good> getOne(@PathVariable("id") Long id) {
         return goodService.getOne(id);
+    }
+
+    @RequestMapping(
+            value = "/public/{username}",
+            method = RequestMethod.GET)
+    public ResponseEntity<GoodDTO> getOrderByUsername(@PathVariable("username") String username) {
+        return goodService.getGoodDTOByUsername(username);
     }
 
 }

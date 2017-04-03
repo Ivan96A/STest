@@ -2,6 +2,7 @@ package test.sombra.good.service;
 
 import org.springframework.http.ResponseEntity;
 import test.sombra.good.domain.Good;
+import test.sombra.good.domain.GoodDTO;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface GoodService {
 
     ResponseEntity<Good> add(Good good);
 
-    ResponseEntity<List<Good>> getAllByOrderId(Long id);
+    ResponseEntity<GoodDTO> getGoodDTOByUsername(String username);
 
     ResponseEntity<Good> edit(Good good);
 

@@ -1,12 +1,12 @@
+/**
+ * Created by Ivan on 03.04.2017.
+ */
+
 (function () {
     'use strict';
 
     angular
-        .module('admin', [
-            'users',
-            'manufacturers',
-            'types',
-            'goods',
+        .module('goods', [
             'ui.router'
         ])
         .config(configure);
@@ -15,13 +15,10 @@
     function configure($stateProvider, $urlRouterProvider) {
 
         $stateProvider
-            .state('main.admin', {
-                url: 'admin',
+            .state('main.admin.goods', {
+                url: 'admin.goods',
                 //controller: 'LoginCtrl',
-                templateUrl: 'app/admin/admin.view.html',
-                data: {
-                    is_granted: ["ROLE_ADMIN"]
-                }
+                templateUrl: 'app/admin/goods/admin.goods.view.html',
             });
     }
 

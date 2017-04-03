@@ -17,6 +17,7 @@ import test.sombra.user.service.CustomUserService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -26,10 +27,6 @@ import java.util.List;
  */
 @Component
 public class OrderMapper implements RowMapper<Order> {
-
-    private static final String ID = "id";
-
-    private static final String AMOUNT = "amount";
 
     private static final String USER_ID = "user_id";
 
@@ -49,11 +46,14 @@ public class OrderMapper implements RowMapper<Order> {
     public Order mapRow(ResultSet resultSet, int i) throws SQLException {
         Order order = new Order();
 
-        order.setId(resultSet.getLong(ID));
-        order.setAmount(resultSet.getDouble(AMOUNT));
         CustomUser user = customUserService.findOneById(resultSet.getLong(USER_ID));
         order.setUser(user);
-        List<Good> goods = goodService.findAllByOrderId(order.getId());
+        List<Long> goodsId = goodService.findAllGoodsIdByOrderId(order.getId());
+        List<Good> goods = new ArrayList<>();
+        for (Long id : goodsId) {
+            Good good = goodService.findOneById(id);
+            goods.add(good);
+        }
         order.setGoods(new HashSet<>(goods));
 
         return order;

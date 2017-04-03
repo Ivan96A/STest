@@ -10,10 +10,14 @@ import org.springframework.util.Assert;
 import test.sombra.good.dao.GoodDAO;
 import test.sombra.good.dao.impl.GoodDAOImpl;
 import test.sombra.good.domain.Good;
+import test.sombra.good.domain.GoodDTO;
 import test.sombra.good.service.GoodService;
 import test.sombra.type.dao.TypeDAO;
 import test.sombra.type.dao.impl.TypeDAOImpl;
+import test.sombra.user.dao.CustomUserDAO;
+import test.sombra.user.domain.CustomUser;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -26,13 +30,16 @@ public class GoodServiceImpl implements GoodService {
 
     private final TypeDAO typeDAO;
 
+    private CustomUserDAO customUserDAO;
+
     private static final Logger LOGGER = Logger.getLogger(GoodServiceImpl.class);
 
     @Autowired
-    public GoodServiceImpl(GoodDAO goodDAO, TypeDAO typeDAO) {
+    public GoodServiceImpl(GoodDAO goodDAO, TypeDAO typeDAO, CustomUserDAO customUserDAO) {
         Assert.notNull(goodDAO, "goodDAO must not be null");
         this.goodDAO = goodDAO;
         this.typeDAO = typeDAO;
+        this.customUserDAO = customUserDAO;
     }
 
     @Override
@@ -80,12 +87,26 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public ResponseEntity<List<Good>> getAllByOrderId(Long id) {
-        if (id <= 0) {
-            LOGGER.warn("id cannot be less then 1");
+    public ResponseEntity<GoodDTO> getGoodDTOByUsername(String username) {
+        if(Strings.isNullOrEmpty(username)) {
+            LOGGER.warn("username is null or empty");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(goodDAO.findAllByOrderId(id), HttpStatus.OK);
+        Double amount = new Double(0);
+        CustomUser customUser = customUserDAO.findOneByUsername(username);
+        List<Long> goodsId = goodDAO.findAllGoodsIdByOrderId(customUser.getId());
+        GoodDTO goodDTO = getGoodDTO(amount, goodsId);
+        return new ResponseEntity<>(goodDTO, HttpStatus.OK);
+    }
+
+    private GoodDTO getGoodDTO(Double amount, List<Long> goodsId) {
+        List<Good> goods = new LinkedList<>();
+        for (Long id : goodsId) {
+           Good good = goodDAO.findOneById(id);
+            amount += good.getPrice();
+            goods.add(good);
+        }
+        return new GoodDTO(goods, amount);
     }
 
     @Override

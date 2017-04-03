@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import test.sombra.good.dao.GoodDAO;
 import test.sombra.good.domain.Good;
 import test.sombra.manufacturer.dao.ManufacturerDAO;
 import test.sombra.manufacturer.dao.impl.ManufacturerDAOImpl;
@@ -40,7 +41,9 @@ public class GoodMapper implements RowMapper<Good> {
 
     private static final String MANUFACTURER_ID = "manufacturer_id";
 
-    private static final String NAME= "name";
+    private static final String NAME = "name";
+
+    private static final String GOOD_ID = "goods_id";
 
     private final TypeDAO typeService;
 
@@ -82,7 +85,6 @@ public class GoodMapper implements RowMapper<Good> {
             good.setStatus((Boolean) row.get(STATUS));
             good.setMaterial((String) row.get(MATERIAL));
             good.setPicture((String) row.get(PICTURE));
-
             Manufacturer manufacturer = manufacturerService.findOneById((Long) row.get(MANUFACTURER_ID));
             Type type = typeService.findOneById((Long) row.get(TYPE_ID));
 
@@ -93,5 +95,14 @@ public class GoodMapper implements RowMapper<Good> {
         }
 
         return goods;
+    }
+
+    public List<Long> mapRowsByGoodsOrdersTable(List<Map<String, Object>> rows) {
+        List<Long> idGoods = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Long id = (Long) row.get(GOOD_ID);
+            idGoods.add(id);
+        }
+        return idGoods;
     }
 }

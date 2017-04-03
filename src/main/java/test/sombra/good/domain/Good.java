@@ -29,7 +29,7 @@ public class Good implements Serializable {
     private Double price;
 
     @Column(name = "status")
-    private boolean status;
+    private boolean status = true;
 
     @Column(name = "material")
     private String material;

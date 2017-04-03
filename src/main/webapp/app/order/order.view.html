@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" ng-init="getOrderByUsername()">
+                <tr>
+                    <th>Назва</th>
+                    <th>Ціна</th>
+                </tr>
+                <tr ng-repeat="good in goodDTO.goods">
+                    <td>{{good.name}}</td>
+                    <td>{{good.price}}
+                        <button type="button" ng-click="deleteGoodFromOrder(good.id)" class="btn btn-danger">Видалити</button>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                До виплати {{goodDTO.amount}}
+            </div>
+
+
+        </div>
+    </div>
+</div>

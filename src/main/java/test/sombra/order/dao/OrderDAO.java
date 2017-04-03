@@ -9,6 +9,10 @@ import test.sombra.order.domain.Order;
  */
 public interface OrderDAO extends DAO<Order, Long> {
 
+    Long findCountRowsByUserId(Long id);
+
+    Order findOneByUserId(Long id);
+
     int addGoodToOrder(Good good, Order order);
 
     void deleteGoodFromOrder(Good good, Order order0);

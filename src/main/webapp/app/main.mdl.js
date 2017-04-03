@@ -10,6 +10,8 @@
             'admin',
             'register',
             'login',
+            'order',
+            'admin',
             'ui.router',
             'ui.bootstrap',
             'ngCookies',

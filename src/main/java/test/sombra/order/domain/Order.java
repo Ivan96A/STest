@@ -19,9 +19,6 @@ public class Order implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "amount")
-    private Double amount;
-
     @ManyToMany(targetEntity = Good.class, mappedBy = "orders", cascade = CascadeType.ALL)
     private Set<Good> goods = new HashSet<>();
 
@@ -32,8 +29,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Double amount, Set<Good> goods, CustomUser user) {
-        this.amount = amount;
+    public Order(Set<Good> goods, CustomUser user) {
         this.goods = goods;
         this.user = user;
     }
@@ -44,14 +40,6 @@ public class Order implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
     }
 
     public Set<Good> getGoods() {
@@ -78,7 +66,6 @@ public class Order implements Serializable {
         Order order = (Order) o;
 
         if (getId() != null ? !getId().equals(order.getId()) : order.getId() != null) return false;
-        if (!getAmount().equals(order.getAmount())) return false;
         if (!getGoods().equals(order.getGoods())) return false;
         return getUser() != null ? getUser().equals(order.getUser()) : order.getUser() == null;
 
@@ -87,7 +74,6 @@ public class Order implements Serializable {
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + getAmount().hashCode();
         result = 31 * result + getGoods().hashCode();
         result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
         return result;
@@ -97,7 +83,6 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", amount=" + amount +
                 ", goods=" + goods +
                 ", user=" + user +
                 '}';
