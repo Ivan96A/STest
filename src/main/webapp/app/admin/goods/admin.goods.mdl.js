@@ -16,10 +16,16 @@
 
         $stateProvider
             .state('main.admin.goods', {
-                url: 'admin.goods',
-                //controller: 'LoginCtrl',
+                url: 'goods',
+                controller: 'GoodsCtrl',
                 templateUrl: 'app/admin/goods/admin.goods.view.html',
-            });
+            })
+            .state('main.admin.goodAdd', {
+                    url: 'goodAdd',
+                    controller: 'GoodEditCtrl',
+                    templateUrl: 'app/admin/goods/good.add.view.html',
+                }
+            );
     }
 
 })();

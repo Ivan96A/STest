@@ -55,7 +55,15 @@ public class OrderServiceImpl implements OrderService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Good good = goodDao.findOneById(orderDTO.getGoodId());
+        if (good == null) {
+            LOGGER.warn("good is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         CustomUser customUser = customUserDAO.findOneByUsername(orderDTO.getUsername());
+        if (customUser == null) {
+            LOGGER.warn("user is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Order order;
         if (orderDAO.findCountRowsByUserId(customUser.getId()) == 0) {
             order = new Order();
@@ -63,6 +71,10 @@ public class OrderServiceImpl implements OrderService {
             orderDAO.insert(order);
         }
         order = orderDAO.findOneByUserId(customUser.getId());
+        if (order == null) {
+            LOGGER.warn("order is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         orderDAO.addGoodToOrder(good, order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
@@ -74,7 +86,15 @@ public class OrderServiceImpl implements OrderService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Good good = goodDao.findOneById(orderDTO.getGoodId());
+        if (good == null) {
+            LOGGER.warn("good is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Order order = orderDAO.findOneByUserId(customUserDAO.findOneByUsername(orderDTO.getUsername()).getId());
+        if (order == null) {
+            LOGGER.warn("order is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         orderDAO.deleteGoodFromOrder(good, order);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }

@@ -19,4 +19,6 @@ public interface TypeService {
     ResponseEntity<Void> delete(Long id);
 
     ResponseEntity<Type> getOne(Long id);
+
+    ResponseEntity<Type> getOneByName(String name);
 }

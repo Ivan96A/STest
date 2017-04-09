@@ -1,0 +1,22 @@
+<div class="row">
+    You can change active status for current user
+    <div class="col-md-3">
+        <div class="container" ng-init="getUserById(userId)">
+            <p ng-model="user.id">Id {{user.id}}</p>
+            <p ng-model="user.firstName">firstName {{user.firstName}}</p>
+            <p ng-model="user.lastName">lastName {{user.lastName}}</p>
+            <p ng-model="user.role">role {{user.role}}</p>
+            <p ng-model="user.username">username {{user.username}}</p>
+        </div>
+        <div col-md-3>
+            <!--<p>active     {{user.active}}</p>-->
+            <input ng-model="user.active" type="text" class="form-control" placeholder="{{user.active}}"
+                   aria-describedby="basic-addon1">
+            <button type="submit" class="btn btn-default" ng-click="updateUser(user)">update</button>
+        </div>
+        <div col-md-3>
+        </div>
+        <div col-md-3>
+        </div>
+    </div>
+</div>

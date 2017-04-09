@@ -16,7 +16,7 @@
 
         $stateProvider
             .state('main.admin', {
-                url: 'admin',
+                url: 'admin/',
                 //controller: 'LoginCtrl',
                 templateUrl: 'app/admin/admin.view.html',
                 data: {

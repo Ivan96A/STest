@@ -1,1 +1,28 @@
-goods
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" ng-init="getGoods()">
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>material</th>
+                    <th>price</th>
+                    <th>status</th>
+                </tr>
+                <tr ng-repeat="good in goods">
+                    <td>{{good.id}}</td>
+                    <td>{{good.name}}</td>
+                    <td>{{good.material}}</td>
+                    <td>{{good.price}}
+                        <!--<button type="button" ng-click="deleteGoodFromOrder(good.id)" class="btn btn-danger">Видалити</button>-->
+                    </td>
+                    <td>{{good.status}}</td>
+                </tr>
+            </table>
+
+            <a class="btn btn-default" href="#/admin/goodAdd" role="button">Add</a>
+
+
+        </div>
+    </div>
+</div>

@@ -19,8 +19,8 @@
                 controller: 'GoodsCtrl',
                 templateUrl: 'app/home/home.view.html'
             })
-            .state('main.good',{
-               url: 'good/:goodId',
+            .state('main.good', {
+                url: 'good/:goodId',
                 controller: 'GoodsEditCtrl',
                 templateUrl: 'app/good/profile/good.profile.view.html'
             });

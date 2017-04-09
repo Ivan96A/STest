@@ -5,10 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import test.sombra.good.domain.Good;
 import test.sombra.good.domain.GoodDTO;
 import test.sombra.good.service.GoodService;
@@ -32,12 +30,12 @@ public class GoodController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Good>> getAll(String goodName, String typeId) {
-        if (goodName != null && typeId != null) {
-            return goodService.getAllByNameAndTypeId(goodName, typeId);
-        } else if (goodName == null && typeId != null) {
-            return goodService.getAllByTypeId(typeId);
-        } else if (goodName != null && typeId == null) {
+    public ResponseEntity<List<Good>> getAll(String goodName, String typeName) {
+        if (goodName != null && typeName != null) {
+            return goodService.getAllByNameAndTypeId(goodName, typeName);
+        } else if (goodName == null && typeName != null) {
+            return goodService.getAllByTypeId(typeName);
+        } else if (goodName != null && typeName == null) {
             return goodService.getAllByName(goodName);
         } else {
             return goodService.getAll();
@@ -57,6 +55,17 @@ public class GoodController {
             method = RequestMethod.GET)
     public ResponseEntity<GoodDTO> getOrderByUsername(@PathVariable("username") String username) {
         return goodService.getGoodDTOByUsername(username);
+    }
+
+    @RequestMapping(value = "/upload",
+            method = RequestMethod.POST)
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile multipartFile) {
+        return goodService.uploadImage(multipartFile);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Good> save(@RequestBody Good good, String typeName, String manufacturerName) {
+        return goodService.add(good, typeName, manufacturerName);
     }
 
 }

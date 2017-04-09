@@ -7,16 +7,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 import test.sombra.good.dao.GoodDAO;
-import test.sombra.good.dao.impl.GoodDAOImpl;
 import test.sombra.good.domain.Good;
 import test.sombra.good.domain.GoodDTO;
 import test.sombra.good.service.GoodService;
+import test.sombra.image.ImageService;
+import test.sombra.manufacturer.dao.ManufacturerDAO;
+import test.sombra.manufacturer.domain.Manufacturer;
 import test.sombra.type.dao.TypeDAO;
-import test.sombra.type.dao.impl.TypeDAOImpl;
+import test.sombra.type.domain.Type;
 import test.sombra.user.dao.CustomUserDAO;
 import test.sombra.user.domain.CustomUser;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,16 +37,26 @@ public class GoodServiceImpl implements GoodService {
 
     private final TypeDAO typeDAO;
 
-    private CustomUserDAO customUserDAO;
+    private final CustomUserDAO customUserDAO;
+
+    private final ManufacturerDAO manufacturerDAO;
+
+    private final ImageService imageService;
 
     private static final Logger LOGGER = Logger.getLogger(GoodServiceImpl.class);
 
     @Autowired
-    public GoodServiceImpl(GoodDAO goodDAO, TypeDAO typeDAO, CustomUserDAO customUserDAO) {
+    public GoodServiceImpl(GoodDAO goodDAO, TypeDAO typeDAO, CustomUserDAO customUserDAO, ManufacturerDAO manufacturerDAO, ImageService imageService) {
         Assert.notNull(goodDAO, "goodDAO must not be null");
+        Assert.notNull(typeDAO, "typeDAO must not be null");
+        Assert.notNull(customUserDAO, "customUserDAO must not be null");
+        Assert.notNull(manufacturerDAO, "manufacturerDAO must not be null");
+        Assert.notNull(imageService, "imageService must not be null");
         this.goodDAO = goodDAO;
         this.typeDAO = typeDAO;
         this.customUserDAO = customUserDAO;
+        this.manufacturerDAO = manufacturerDAO;
+        this.imageService = imageService;
     }
 
     @Override
@@ -48,13 +65,43 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public ResponseEntity<Good> add(Good good) {
+    public ResponseEntity<Good> add(Good good, String typeName, String manufacturerName) {
         if (good == null) {
             LOGGER.warn("cannot be added user because user is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if (Strings.isNullOrEmpty(typeName)) {
+            LOGGER.warn("typeName is null or empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (Strings.isNullOrEmpty(manufacturerName)) {
+            LOGGER.warn("manufacturerName is null or empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Type type = typeDAO.findOneByName(typeName);
+        if (type == null) {
+            LOGGER.warn("type is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Manufacturer manufacturer = manufacturerDAO.findOneByName(manufacturerName);
+        if (manufacturer == null) {
+            LOGGER.warn("manufacturer is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        good.setType(type);
+        good.setManufacturer(manufacturer);
         goodDAO.insert(good);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> uploadImage(MultipartFile multipartFile) {
+        if (multipartFile == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        boolean result = imageService.uploadImage(multipartFile);
+        if (result) return new ResponseEntity<>(multipartFile.getOriginalFilename(), HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
     @Override
@@ -88,7 +135,7 @@ public class GoodServiceImpl implements GoodService {
 
     @Override
     public ResponseEntity<GoodDTO> getGoodDTOByUsername(String username) {
-        if(Strings.isNullOrEmpty(username)) {
+        if (Strings.isNullOrEmpty(username)) {
             LOGGER.warn("username is null or empty");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -102,7 +149,7 @@ public class GoodServiceImpl implements GoodService {
     private GoodDTO getGoodDTO(Double amount, List<Long> goodsId) {
         List<Good> goods = new LinkedList<>();
         for (Long id : goodsId) {
-           Good good = goodDAO.findOneById(id);
+            Good good = goodDAO.findOneById(id);
             amount += good.getPrice();
             goods.add(good);
         }

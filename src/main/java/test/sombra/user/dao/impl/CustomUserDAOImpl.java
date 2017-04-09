@@ -21,7 +21,7 @@ public class CustomUserDAOImpl implements CustomUserDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDAOImpl.class);
 
-    private static final String FIND_ALL_QUERY = "SELECT * FROM types";
+    private static final String FIND_ALL_QUERY = "SELECT * FROM users";
 
     private static final String INSERT_QUERY = "INSERT INTO users(first_name, last_name, " +
             "username, password, active, role) " +

@@ -16,9 +16,14 @@
 
         $stateProvider
             .state('main.admin.manufacturers', {
-                url: 'admin.manufacturers',
-                //controller: 'LoginCtrl',
+                url: 'manufacturers',
+                controller: 'ManufacturersCtrl',
                 templateUrl: 'app/admin/manufacturers/admin.manufacturers.view.html',
+            })
+            .state('main.admin.manufacturerAdd', {
+                url: 'manufacturerAdd',
+                controller: 'ManufacturerAddCtrl',
+                templateUrl: 'app/admin/manufacturers/add/admin.manufacturer.add.view.html'
             });
     }
 

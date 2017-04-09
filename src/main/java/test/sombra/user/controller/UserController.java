@@ -2,14 +2,13 @@ package test.sombra.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import test.sombra.dto.AuthUserDTO;
 import test.sombra.dto.LoginUserDTO;
 import test.sombra.user.domain.CustomUser;
 import test.sombra.user.service.CustomUserService;
+
+import java.util.List;
 
 /**
  * Created by Ivan on 30.03.2017.
@@ -37,4 +36,21 @@ public class UserController {
     public ResponseEntity<CustomUser> register(@RequestBody CustomUser user) {
         return customUserService.save(user);
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CustomUser>> getAll() {
+        return customUserService.getAll();
+    }
+
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.GET)
+    public ResponseEntity<CustomUser> findOne(@PathVariable("id") Long id) {
+        return customUserService.getOne(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<CustomUser> update(@RequestBody CustomUser user) {
+        return customUserService.edit(user);
+    }
+
 }

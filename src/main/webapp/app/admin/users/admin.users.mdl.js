@@ -12,9 +12,14 @@
 
         $stateProvider
             .state('main.admin.users', {
-                url: 'admin.users',
-                //controller: 'LoginCtrl',
-                templateUrl: 'app/admin/users/admin.users.view.html',
+                url: 'users',
+                controller: 'UsersCtrl',
+                templateUrl: 'app/admin/users/admin.users.view.html'
+            })
+            .state('main.admin.usersEdit', {
+                url: 'user/:userId',
+                controller: 'UserEditCtrl',
+                templateUrl: "app/admin/users/edit/user.edit.view.html"
             });
     }
 

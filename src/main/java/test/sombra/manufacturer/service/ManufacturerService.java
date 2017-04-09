@@ -1,6 +1,7 @@
 package test.sombra.manufacturer.service;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 import test.sombra.manufacturer.domain.Manufacturer;
 
 import javax.xml.ws.Response;
@@ -20,4 +21,8 @@ public interface ManufacturerService {
     ResponseEntity<Void> delete(Long id);
 
     ResponseEntity<Manufacturer> getOne(Long id);
+
+    ResponseEntity<Manufacturer> getOneByName(String name);
+
+    ResponseEntity<String> uploadLogo(MultipartFile multipartFile);
 }

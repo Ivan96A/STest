@@ -1,5 +1,6 @@
 package test.sombra.type.service.impl;
 
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +71,14 @@ public class TypeServiceImpl implements TypeService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(typeDAO.findOneById(id), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Type> getOneByName(String name) {
+        if(Strings.isNullOrEmpty(name)) {
+            LOG.warn("name is null or empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(typeDAO.findOneByName(name), HttpStatus.OK);
     }
 }

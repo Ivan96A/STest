@@ -8,4 +8,6 @@ import test.sombra.manufacturer.domain.Manufacturer;
  */
 public interface ManufacturerDAO extends DAO<Manufacturer, Long> {
 
+    Manufacturer findOneByName(String name);
+
 }

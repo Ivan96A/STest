@@ -1,1 +1,22 @@
-types
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" ng-init="getTypes()">
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+
+                </tr>
+                <tr ng-repeat="type in types">
+                    <td>{{type.id}}</td>
+                    <td>{{type.name}}</td>
+
+                        <!--<button type="button" ng-click="deleteGoodFromOrder(good.id)" class="btn btn-danger">Видалити</button>-->
+
+                </tr>
+            </table>
+            <a class="btn btn-default" href="#/admin/typeAdd" role="button">Add</a>
+
+        </div>
+    </div>
+</div>

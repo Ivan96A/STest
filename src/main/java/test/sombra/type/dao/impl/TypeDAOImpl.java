@@ -50,7 +50,7 @@ public class TypeDAOImpl implements TypeDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-     @Override
+    @Override
     public List<Type> findAll() {
         LOGGER.info("Finding all rows of types");
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(FIND_ALL_QUERY);

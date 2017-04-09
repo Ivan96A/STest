@@ -35,6 +35,15 @@
                 return $http.get(urlBase + '/public/' + username);
             }
 
+            this.saveGood = function(good, typeName, manufacturerName) {
+                return $http.post(urlBase, good , {
+                    params: {
+                        typeName: typeName,
+                        manufacturerName: manufacturerName
+                    }
+                });
+            }
+
             //this.sentData = function(gameAndUserData) {
             //    return $http.post('/order', gameAndUserData);
             //}

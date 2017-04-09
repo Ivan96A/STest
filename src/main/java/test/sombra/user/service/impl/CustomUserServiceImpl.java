@@ -73,6 +73,8 @@ public class CustomUserServiceImpl implements CustomUserService {
             LOGGER.warn("cannot be edited user because user is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        Long id = customUserDAO.findOneByUsername(user.getUsername()).getId();
+        user.setId(id);
         customUserDAO.update(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

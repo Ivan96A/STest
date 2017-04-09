@@ -24,15 +24,18 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
 
     private static final String FIND_ALL_QUERY = "SELECT * FROM manufacturers";
 
-    private static final String INSERT_QUERY = "INSERT INTO manufacturers(name) VALUES(?)";
+    private static final String INSERT_QUERY = "INSERT INTO manufacturers(name, logo, country) VALUES(?,?,?)";
 
     private static final String UPDATE_QUERY = "UPDATE manufacturers " +
-            "SET name = ? WHERE id = ?";
+            "SET name = ?, logo = ?, country = ? WHERE id = ?";
 
     private static final String DELETE_QUERY = "DELETE FROM manufacturers WHERE id = ?";
 
     private static final String FIND_ONE_BY_ID_QUERY = "SELECT * FROM manufacturers " +
             "WHERE id = ?";
+
+    private static final String FIND_ONE_BY_NAME_QUERY = "SELECT * FROM manufacturers " +
+            "WHERE name = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -56,18 +59,25 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
     @Override
     public int insert(Manufacturer manufacturer) {
         LOGGER.info("inserting a manufacturer with name='{}'", manufacturer.getName());
-        return jdbcTemplate.update(INSERT_QUERY, manufacturer.getName());
+        return jdbcTemplate.update(INSERT_QUERY,
+                manufacturer.getName(),
+                manufacturer.getLogo(),
+                manufacturer.getCountry());
     }
 
     @Override
     public int update(Manufacturer manufacturer) {
         LOGGER.warn("updating a manufacturer with name='{}'", manufacturer.getName());
-        return jdbcTemplate.update(UPDATE_QUERY, manufacturer.getName(), manufacturer.getId());
+        return jdbcTemplate.update(UPDATE_QUERY,
+                manufacturer.getName(),
+                manufacturer.getLogo(),
+                manufacturer.getCountry(),
+                manufacturer.getId());
     }
 
     @Override
     public void delete(Long aLong) {
-    LOGGER.info("deleting a manufacturer with id='{}'", aLong);
+        LOGGER.info("deleting a manufacturer with id='{}'", aLong);
         jdbcTemplate.update(DELETE_QUERY, aLong);
     }
 
@@ -76,6 +86,15 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
         LOGGER.info("finding a manufacturer by id='{}'", aLong);
         return jdbcTemplate.queryForObject(FIND_ONE_BY_ID_QUERY,
                 new Object[]{aLong},
+                manufacturerRowMapper
+        );
+    }
+
+    @Override
+    public Manufacturer findOneByName(String name) {
+        LOGGER.info("finding a manufacturer by username='{}'", name);
+        return jdbcTemplate.queryForObject(FIND_ONE_BY_NAME_QUERY,
+                new Object[]{name},
                 manufacturerRowMapper
         );
     }

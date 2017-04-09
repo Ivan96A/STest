@@ -3,11 +3,11 @@
 
     angular
         .module('main')
-        .service('TypesService', function ($http) {
+        .service('ManufacturersService', function ($http) {
 
-            var urlBase = '/type';
+            var urlBase = '/manufacturer';
 
-            this.getAll = function() {
+            this.getAll = function () {
                 return $http.get(urlBase);
             };
 
@@ -15,9 +15,11 @@
                 return $http.get(urlBase + '/' + name);
             };
 
-            this.save = function(type) {
-                return $http.post(urlBase, type);
+            this.save = function(manufacturer) {
+                return $http.post(urlBase, manufacturer);
             }
+
         });
 })();
+
 

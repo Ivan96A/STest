@@ -23,8 +23,8 @@ public class GoodDAOImpl implements GoodDAO {
 
     private static final String FIND_ALL_QUERY = "SELECT * FROM goods";
 
-    private static final String INSERT_QUERY = "INSERT INTO goods(price, status, " +
-            "material, picture, type_id, manufacturer_id) VALUES(?,?,?,?,?,?)";
+    private static final String INSERT_QUERY = "INSERT INTO goods(name, price, status, " +
+            "material, picture, type_id, manufacturer_id) VALUES(?,?,?,?,?,?,?)";
 
     private static final String UPDATE_QUERY = "UPDATE goods " +
             "SET price = ?, status = ?, material = ?, picture = ?, " +
@@ -66,8 +66,9 @@ public class GoodDAOImpl implements GoodDAO {
 
     @Override
     public int insert(Good good) {
-        LOGGER.info("inserting a good with id='{}'", good.getId());
+        LOGGER.info("inserting a good with name='{}'", good.getName());
         return jdbcTemplate.update(INSERT_QUERY,
+                good.getName(),
                 good.getPrice(),
                 good.isStatus(),
                 good.getMaterial(),
