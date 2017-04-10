@@ -42,6 +42,15 @@
                         manufacturerName: manufacturerName
                     }
                 });
+            };
+
+            this.update = function(good, typeName, manufacturerName) {
+                return $http.post(urlBase + "/update", good, {
+                    params: {
+                        typeName: typeName,
+                        manufacturerName: manufacturerName
+                    }
+                });
             }
 
             //this.sentData = function(gameAndUserData) {

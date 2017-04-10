@@ -1,0 +1,18 @@
+<div class="row">
+    You can change name for current type
+    <div class="col-md-3">
+        <div class="container" ng-init="getOne(typeId)">
+            <p ng-model="user.id">Id {{type.id}}</p>
+        </div>
+        <div col-md-3>
+            <!--<p>active     {{user.active}}</p>-->
+            <input ng-model="type.name" type="text" class="form-control" placeholder="{{type.name}}"
+                   aria-describedby="basic-addon1">
+            <button type="submit" class="btn btn-default" ng-click="updateType(type)">update</button>
+        </div>
+        <div col-md-3>
+        </div>
+        <div col-md-3>
+        </div>
+    </div>
+</div>

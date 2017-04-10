@@ -61,6 +61,9 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             LOG.warn("cannot be updated a manufacturer because manufacturer is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if(Strings.isNullOrEmpty(manufacturer.getLogo())) {
+            manufacturer.setLogo(manufacturerDAO.findOneByName(manufacturer.getName()).getLogo());
+        }
         manufacturerDAO.update(manufacturer);
         return new ResponseEntity<>(manufacturer, HttpStatus.OK);
     }

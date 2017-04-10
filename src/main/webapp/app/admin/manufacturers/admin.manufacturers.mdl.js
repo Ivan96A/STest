@@ -24,6 +24,11 @@
                 url: 'manufacturerAdd',
                 controller: 'ManufacturerAddCtrl',
                 templateUrl: 'app/admin/manufacturers/add/admin.manufacturer.add.view.html'
+            })
+            .state('main.admin.manufacturerEdit', {
+                url: 'manufacturer/:manufacturerId',
+                controller: 'ManufacturerEditCtrl',
+                templateUrl: 'app/admin/manufacturers/edit/admin.manufacturer.edit.view.html'
             });
     }
 

@@ -52,4 +52,10 @@ public class ManufacturerController {
     public ResponseEntity<String> uploadLogo(@RequestParam("file") MultipartFile multipartFile) {
         return manufacturerService.uploadLogo(multipartFile);
     }
+
+    @RequestMapping(value = "/id/{manufacturerId}",
+            method = RequestMethod.GET)
+    public ResponseEntity<Manufacturer> getOneById(@PathVariable("manufacturerId") Long id) {
+        return manufacturerService.getOne(id);
+    }
 }

@@ -16,7 +16,9 @@
                     <td>{{good.price}}
                         <!--<button type="button" ng-click="deleteGoodFromOrder(good.id)" class="btn btn-danger">Видалити</button>-->
                     </td>
-                    <td>{{good.status}}</td>
+                    <td>{{good.status}}
+                        <a class="btn btn-default" href="#/admin/goodEdit/{{good.id}}" role="button">Edit</a>
+                    </td>
                 </tr>
             </table>
 

@@ -1,0 +1,33 @@
+
+<div
+        flow-init="{target: '/good/upload', singleFile: true, testChunks: false}"
+        flow-file-submitted="$flow.upload()"
+        flow-file-success="good.picture = $message.toString()">
+
+    <form name="userForm" ng-init="getOne(goodId)">
+        name<input type="text" placeholder="{{good.name}}" class="form-control" ng-model="good.name"/>
+        price<input type="text" placeholder="{{good.price}}" class="form-control" ng-model="good.price"/>
+        material<input type="text" placeholder="{{good.material}}" class="form-control" ng-model="good.material"/>
+        status <input type="text" placeholder="{{good.status}}" class="form-control" ng-model="good.status"/>
+
+        <div ng-controller="TypesCtrl" ng-init="getTypes()">
+            type <select class="form-control" placeholder="{{good.type.name}}" ng-model="typeName">
+            <option  ng-repeat="type in types" ng-model="typeName">{{type.name}}</option>
+        </select>
+
+
+            <div ng-controller="ManufacturersCtrl" placeholder="{{good.manufacturer.name}}" ng-init="getManufacturers()">
+                manufacturer <select class="form-control" ng-model="manufacturerName">
+                <option  ng-repeat="manufacturer in manufacturers" ng-model="manufacturerName">{{manufacturer.name}}</option>
+            </select>
+
+                <input type="file" flow-btn/>
+                <button type="button"  ng-click="$flow.upload()" class="btn btn-success">upload</button>
+                <!--<span class="label label-info" ng-model="good.picture">Name: {{$flow.files[0].name}}</span>-->
+                <!--<span class="label label-info">Size: {{$flow.getOriginalName()}}</span>-->
+
+                <button type="submit" class="btn btn-default" ng-click="updateGood(good, typeName, manufacturerName)">add</button>
+            </div>
+        </div>
+    </form>
+</div>

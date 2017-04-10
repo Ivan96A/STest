@@ -25,7 +25,12 @@
                     controller: 'GoodEditCtrl',
                     templateUrl: 'app/admin/goods/good.add.view.html',
                 }
-            );
+            )
+            .state('main.admin.goodEdit', {
+                url: 'goodEdit/:goodId',
+                controller: 'GoodEditCtrl',
+                templateUrl: 'app/admin/goods/edit/admin.good.edit.view.html'
+            });
     }
 
 })();

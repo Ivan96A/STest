@@ -17,6 +17,14 @@
 
             this.save = function(manufacturer) {
                 return $http.post(urlBase, manufacturer);
+            };
+
+            this.update = function(manufacturer) {
+                return $http.post(urlBase + '/update', manufacturer);
+            };
+
+            this.getOneById = function(id) {
+                return $http.get(urlBase + '/id/' + id);
             }
 
         });

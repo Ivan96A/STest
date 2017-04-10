@@ -1,0 +1,20 @@
+<div
+        flow-init="{target: '/manufacturer/upload', singleFile: true, testChunks: false}"
+        flow-file-submitted="$flow.upload()"
+        flow-file-success="manufacturer.logo = $message.toString()"
+
+    >
+
+    <form name="manufacturerForm"  ng-init="getOne(manufacturerId)">
+        name<input type="text" placeholder="{{manufacturer.name}}" class="form-control" ng-model="manufacturer.name"/>
+        country<input type="text" placeholder="{{manufacturer.name}}" class="form-control" ng-model="manufacturer.country"/>
+
+        <input type="file" flow-btn/>
+        <button type="button"  ng-click="$flow.upload()" class="btn btn-success">upload</button>
+        <!--<span class="label label-info" ng-model="good.picture">Name: {{$flow.files[0].name}}</span>-->
+        <!--<span class="label label-info">Size: {{$flow.getOriginalName()}}</span>-->
+
+        <button type="submit" class="btn btn-default" ng-click="updateManufacturer(manufacturer)">add</button>
+
+    </form>
+</div>

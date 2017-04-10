@@ -23,7 +23,12 @@
             .state('main.admin.typeAdd', {
                 url: 'typeAdd',
                 controller: 'TypeAddCtrl',
-                templateUrl: 'app/admin/types/add/admin.type.add.view.html'
+                templateUrl: 'app/admin/types/add/admin.type.add.view.html',
+            })
+            .state('main.admin.typeEdit', {
+                url: 'type/:typeId',
+                controller: 'TypeEditCtrl',
+                templateUrl: 'app/admin/types/edit/admin.type.edit.view.html'
             });
     }
 

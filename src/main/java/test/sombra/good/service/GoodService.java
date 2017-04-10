@@ -18,7 +18,7 @@ public interface GoodService {
 
     ResponseEntity<GoodDTO> getGoodDTOByUsername(String username);
 
-    ResponseEntity<Good> edit(Good good);
+    ResponseEntity<Good> edit(Good good, String typeName, String manufacturerName);
 
     ResponseEntity<Void> delete(Long id);
 

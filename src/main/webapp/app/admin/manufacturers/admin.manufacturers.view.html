@@ -10,9 +10,10 @@
                 <tr ng-repeat="manufacturer in manufacturers">
                     <td>{{manufacturer.id}}</td>
                     <td>{{manufacturer.name}}</td>
-                    <td>{{manufacturer.country}}</td>
-                        <!--<button type="button" ng-click="deleteGoodFromOrder(good.id)" class="btn btn-danger">Видалити</button>-->
+                    <td>{{manufacturer.country}}
+                        <a class="btn btn-default" href="#/admin/manufacturer/{{manufacturer.id}}" role="button">Edit</a>
 
+                    </td>
 
                 </tr>
             </table>

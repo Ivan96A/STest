@@ -9,10 +9,9 @@
                 </tr>
                 <tr ng-repeat="type in types">
                     <td>{{type.id}}</td>
-                    <td>{{type.name}}</td>
-
-                        <!--<button type="button" ng-click="deleteGoodFromOrder(good.id)" class="btn btn-danger">Видалити</button>-->
-
+                    <td>{{type.name}}
+                        <a class="btn btn-default" href="#/admin/type/{{type.id}}" role="button">Edit</a>
+                    </td>
                 </tr>
             </table>
             <a class="btn btn-default" href="#/admin/typeAdd" role="button">Add</a>

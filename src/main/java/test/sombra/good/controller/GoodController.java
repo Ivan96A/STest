@@ -11,6 +11,7 @@ import test.sombra.good.domain.Good;
 import test.sombra.good.domain.GoodDTO;
 import test.sombra.good.service.GoodService;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -66,6 +67,12 @@ public class GoodController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Good> save(@RequestBody Good good, String typeName, String manufacturerName) {
         return goodService.add(good, typeName, manufacturerName);
+    }
+
+    @RequestMapping(value = "/update",
+            method = RequestMethod.POST)
+    public ResponseEntity<Good> update(@RequestBody Good good, String typeName, String manufacturerName) {
+        return goodService.edit(good, typeName, manufacturerName);
     }
 
 }

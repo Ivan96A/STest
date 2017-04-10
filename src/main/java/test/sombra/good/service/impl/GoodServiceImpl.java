@@ -105,10 +105,26 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public ResponseEntity<Good> edit(Good good) {
+    public ResponseEntity<Good> edit(Good good, String typeName, String manufacturerName) {
         if (good == null) {
             LOGGER.warn("cannot be added user because user is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (Strings.isNullOrEmpty(typeName)) {
+            good.setType(goodDAO.findOneById(good.getId()).getType());
+        } else {
+            Type type = typeDAO.findOneByName(typeName);
+            good.setType(type);
+        }
+        if (Strings.isNullOrEmpty(manufacturerName)) {
+            good.setManufacturer(goodDAO.findOneById(good.getId()).getManufacturer());
+        } else {
+            Manufacturer manufacturer = manufacturerDAO.findOneByName(manufacturerName);
+            good.setManufacturer(manufacturer);
+        }
+
+        if (Strings.isNullOrEmpty(good.getPicture())) {
+            good.setPicture(goodDAO.findOneById(good.getId()).getPicture());
         }
         goodDAO.update(good);
         return new ResponseEntity<>(good, HttpStatus.OK);

@@ -38,4 +38,16 @@ public class TypeController {
     public ResponseEntity<Type> save(@RequestBody Type type) {
         return typeService.add(type);
     }
+
+    @RequestMapping(value = "/update",
+            method = RequestMethod.POST)
+    public ResponseEntity<Type> update(@RequestBody Type type) {
+        return typeService.update(type);
+    }
+
+    @RequestMapping( value = "/id/{typeId}",
+            method = RequestMethod.GET)
+    public ResponseEntity<Type> getOne(@PathVariable("typeId") Long id) {
+        return typeService.getOne(id);
+    }
 }

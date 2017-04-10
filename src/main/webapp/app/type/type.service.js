@@ -7,16 +7,24 @@
 
             var urlBase = '/type';
 
-            this.getAll = function() {
+            this.getAll = function () {
                 return $http.get(urlBase);
             };
 
-            this.getOneByName = function(name) {
+            this.getOneById = function (id) {
+                return $http.get('/type/id/' + id);
+            };
+
+            this.getOneByName = function (name) {
                 return $http.get(urlBase + '/' + name);
             };
 
-            this.save = function(type) {
+            this.save = function (type) {
                 return $http.post(urlBase, type);
+            };
+
+            this.update = function (type) {
+                return $http.post(urlBase + '/update', type);
             }
         });
 })();
