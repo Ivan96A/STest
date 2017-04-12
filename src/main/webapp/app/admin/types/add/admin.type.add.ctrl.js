@@ -9,12 +9,13 @@
         .module('main')
         .controller('TypeAddCtrl', TypeAddCtrl);
 
-    function TypeAddCtrl($scope, TypesService) {
+    function TypeAddCtrl($scope, TypesService, $state) {
 
         var sc = $scope;
 
         sc.saveType= function (type) {
             function success(response) {
+                $state.go('main.admin.types');
             };
 
             function failed(response) {

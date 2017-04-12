@@ -26,7 +26,7 @@ public interface GoodService {
 
     ResponseEntity<List<Good>> getAllByName(String name);
 
-    ResponseEntity<List<Good>> getAllByTypeId(String typeName);
+    ResponseEntity<List<Good>> getAllByTypeName(String typeName);
 
     ResponseEntity<List<Good>> getAllByNameAndTypeId(String name, String typeName);
 

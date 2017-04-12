@@ -11,7 +11,7 @@
     function LoginCtrl($scope, $state, LoginService, crAcl, CredentialsService) {
         var sc = $scope;
 
-        CredentialsService.ClearCredentials();
+        //CredentialsService.ClearCredentials();
 
         sc.usernameCheckShow = false;
 

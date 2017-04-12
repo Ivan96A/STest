@@ -5,7 +5,7 @@
         .module('main')
         .controller('OrdersCtrl', OrdersCtrl);
 
-    function OrdersCtrl($scope, $state, GoodsService, $location, ngDialog, $rootScope) {
+    function OrdersCtrl($scope, $state, GoodsService, ngDialog, $location, $rootScope) {
 
         var sc = $scope;
         sc.username = $rootScope.globals.currentUser.username;
@@ -34,7 +34,7 @@
         sc.deleteGoodFromOrder = function(id) {
              sc.sentData.goodId = id;
             function success(response) {
-
+                $state.go("main.home");
             };
 
             function failed(response) {

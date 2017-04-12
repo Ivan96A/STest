@@ -12,6 +12,7 @@
 
         sc.updateType = function (type) {
             function success(response) {
+                $state.go('main.admin.types');
             };
 
             function failed(response) {

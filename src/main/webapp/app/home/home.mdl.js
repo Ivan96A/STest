@@ -22,7 +22,10 @@
             .state('main.good', {
                 url: 'good/:goodId',
                 controller: 'GoodsEditCtrl',
-                templateUrl: 'app/good/profile/good.profile.view.html'
+                templateUrl: 'app/good/profile/good.profile.view.html',
+                data: {
+                    is_granted: ["ROLE_USER"]
+                }
             });
 
     }

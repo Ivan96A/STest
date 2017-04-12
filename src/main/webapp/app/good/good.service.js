@@ -10,11 +10,11 @@
 
             var urlBase = '/good';
 
-            this.getAll = function(goodName, typeId) {
+            this.getAll = function(goodName, typeName) {
                 return $http.get(urlBase, {
                         params: {
                             goodName: goodName,
-                            typeId: typeId
+                            typeName: typeName
                         }
                     });
             };
@@ -51,11 +51,7 @@
                         manufacturerName: manufacturerName
                     }
                 });
-            }
-
-            //this.sentData = function(gameAndUserData) {
-            //    return $http.post('/order', gameAndUserData);
-            //}
+            };
 
         });
 })();

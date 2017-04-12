@@ -1,5 +1,6 @@
 package test.sombra.good.controller;
 
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +33,11 @@ public class GoodController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Good>> getAll(String goodName, String typeName) {
-        if (goodName != null && typeName != null) {
+        if (!Strings.isNullOrEmpty(goodName) && !Strings.isNullOrEmpty(typeName)) {
             return goodService.getAllByNameAndTypeId(goodName, typeName);
-        } else if (goodName == null && typeName != null) {
-            return goodService.getAllByTypeId(typeName);
-        } else if (goodName != null && typeName == null) {
+        } else if (Strings.isNullOrEmpty(goodName) && !Strings.isNullOrEmpty(typeName)) {
+            return goodService.getAllByTypeName(typeName);
+        } else if (!Strings.isNullOrEmpty(goodName) && Strings.isNullOrEmpty(typeName)) {
             return goodService.getAllByName(goodName);
         } else {
             return goodService.getAll();

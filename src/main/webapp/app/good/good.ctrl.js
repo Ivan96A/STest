@@ -12,9 +12,10 @@
 
         var sc = $scope;
 
-        sc.getGoods = function (goodName, typeId) {
+        sc.getGoods = function (goodName, typeName) {
             if(goodName == "") goodName = null;
-             if(typeId== "All") typeId = null;
+             if(typeName== "All") typeName = null;
+
 
             function success(response) {
                 sc.goods = response.data;
@@ -24,7 +25,7 @@
                 sc.goods = response.data;
             };
 
-            GoodsService.getAll(goodName, typeId).then(success, failed);
+            GoodsService.getAll(goodName, typeName).then(success, failed);
         };
     }
 })();

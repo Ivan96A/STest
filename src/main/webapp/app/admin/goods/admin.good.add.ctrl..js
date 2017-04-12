@@ -8,7 +8,7 @@
         .module('main')
         .controller('GoodEditCtrl', GoodEditCtrl);
 
-    function GoodEditCtrl($scope, $stateParams, GoodsService) {
+    function GoodEditCtrl($scope, $stateParams, GoodsService, $state) {
 
         var sc = $scope;
 
@@ -16,6 +16,7 @@
 
         sc.saveGood = function (good, typeName, manufacturerName) {
             function success(response) {
+                $state.go('main.admin.goods');
             };
 
             function failed(response) {
@@ -39,6 +40,7 @@
         sc.updateGood = function(good, typeName, manufacturerName) {
             function success(response) {
                 sc.good = response.data;
+                $state.go('main.admin.goods');
             };
 
             function failed(response) {
@@ -47,5 +49,6 @@
 
             GoodsService.update(good, typeName, manufacturerName).then(success, failed);
         }
+
     }
 })();

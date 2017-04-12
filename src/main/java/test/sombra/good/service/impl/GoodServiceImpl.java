@@ -182,7 +182,7 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public ResponseEntity<List<Good>> getAllByTypeId(String typeName) {
+    public ResponseEntity<List<Good>> getAllByTypeName(String typeName) {
         if (Strings.isNullOrEmpty(typeName)) {
             LOGGER.warn("typeName is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

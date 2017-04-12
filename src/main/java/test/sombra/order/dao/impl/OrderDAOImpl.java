@@ -21,8 +21,8 @@ public class OrderDAOImpl implements OrderDAO {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OrderDAOImpl.class);
 
-    private static final String INSERT_QUERY = "INSERT INTO orders(amount, user_id) " +
-            "VALUES(?,?)";
+    private static final String INSERT_QUERY = "INSERT INTO orders(user_id) " +
+            "VALUES(?)";
 
     private static final String FIND_ONE_BY_ID_QUERY = "SELECT * FROM orders WHERE id = ?";
 

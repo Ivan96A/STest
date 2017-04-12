@@ -8,7 +8,7 @@
         .module('main')
         .controller('ManufacturerEditCtrl', ManufacturerEditCtrl);
 
-    function ManufacturerEditCtrl($scope, ManufacturersService, $stateParams) {
+    function ManufacturerEditCtrl($scope, ManufacturersService, $stateParams, $state) {
 
         var sc = $scope;
         sc.manufacturerId = $stateParams.manufacturerId;
@@ -16,12 +16,14 @@
         sc.updateManufacturer = function (manufacturer) {
 
             function success(response) {
+                $state.go('main.admin.manufacturers');
             };
 
             function failed(response) {
             };
 
             ManufacturersService.update(manufacturer).then(success, failed);
+
         };
 
         sc.getOne = function (id) {

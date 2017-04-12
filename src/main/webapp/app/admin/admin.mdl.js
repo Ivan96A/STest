@@ -17,7 +17,6 @@
         $stateProvider
             .state('main.admin', {
                 url: 'admin/',
-                //controller: 'LoginCtrl',
                 templateUrl: 'app/admin/admin.view.html',
                 data: {
                     is_granted: ["ROLE_ADMIN"]
