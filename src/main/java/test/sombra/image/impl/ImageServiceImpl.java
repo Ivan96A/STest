@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    private static final String UPLOADED_FOLDER = "D://Projects java//STest//src//main//webapp//images//";
+    private static final String UPLOADED_FOLDER = "src//main//webapp//images//";
 
 
     @Override
